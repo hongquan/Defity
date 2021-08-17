@@ -1,0 +1,5 @@
+/target
+/dist
+*.so
+__pycache__
+.vscode
