@@ -1,5 +1,6 @@
 /target
 /dist
 *.so
+*.bin
 __pycache__
 .vscode

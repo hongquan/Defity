@@ -19,6 +19,11 @@ classifiers = [
 homepage = "https://github.com/hongquan/Defity"
 repository = "https://github.com/hongquan/Defity.git"
 
+[project.optional-dependencies]
+test = [
+  "pytest>=6,<7",
+]
+
 [build-system]
 build-backend = "maturin"
 requires = ["maturin>=0.11.2,<0.12"]
