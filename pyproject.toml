@@ -1,17 +1,36 @@
-[tool.poetry]
+[project]
 name = "defity"
-version = "0.1.0"
 description = "Speedy library to detect file type from initial part of file content"
-authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
-license = "Apache-2.0"
-classifiers = ["Programming Language :: Python"]
+authors = [
+  {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
+]
+maintainers = [
+  {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
 
-[tool.poetry.dependencies]
-python = "^3.6.1"
+[project.urls]
+homepage = "https://github.com/hongquan/Defity"
+repository = "https://github.com/hongquan/Defity.git"
+
+[build-system]
+build-backend = "maturin"
+requires = ["maturin>=0.11.2,<0.12"]
+
+[tool.maturin]
+sdist-include = ["Cargo.lock"]
+strip = true
 
 [tool.poetry.dev-dependencies]
 maturin = "^0.11.2"
 
-[build-system]
-requires = ["maturin>=0.11,<0.12"]
-build-backend = "maturin"
+[tool.black]
+line-length = 88
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
