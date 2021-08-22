@@ -10,6 +10,12 @@ NO_READ_PERMISSION_FILE = '/proc/kcore'
 UNRECOGNIZED_FILE = DATA / 'mib.bin'
 
 
+def test_from_path():
+    filepath = DATA / 'image.png'
+    mime = defity.from_file(filepath)
+    assert mime == 'image/png'
+
+
 def test_from_string_path():
     filepath = str(DATA / 'image.png')
     mime = defity.from_file(filepath)
@@ -18,7 +24,7 @@ def test_from_string_path():
 
 def test_file_not_found():
     with pytest.raises(FileNotFoundError):
-        filepath = str(DATA / 'not-exist.jpg')
+        filepath = DATA / 'not-exist.jpg'
         defity.from_file(filepath)
 
 
@@ -35,5 +41,5 @@ def test_file_permisson():
 def test_unrecognized_file():
     """Test that a general MIME type "application/octet-stream" is always returned for
     unknown file."""
-    mime = defity.from_file(str(UNRECOGNIZED_FILE))
+    mime = defity.from_file(UNRECOGNIZED_FILE)
     assert mime == 'application/octet-stream'

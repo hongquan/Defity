@@ -1,6 +1,6 @@
 use std::io;
 use std::fs::OpenOptions;
-use std::path::Path;
+use std::path::{PathBuf};
 use pyo3::prelude::*;
 use pyo3::exceptions as exc;
 
@@ -10,8 +10,10 @@ use pyo3::exceptions as exc;
 ///
 /// Get mimetype of file from file path
 #[pyfunction]
-fn from_file(path: &str) -> PyResult<String>{
-    let path = Path::new(path);
+fn from_file(path: PathBuf) -> PyResult<String>{
+    // We receive a PathBuf as parameter to try to handle the variety of file path encoding in
+    // different OS.
+    let path = path.as_path();
     OpenOptions::new().read(true).open(path).map_err(|err| {
         // We can leave for PyO3 to convert io::Error to Python exception,
         // but PyO3 v0.14.2 doesn't have special case for PermissionDenied
