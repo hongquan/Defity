@@ -1,3 +1,4 @@
+import io
 from pathlib import Path
 
 import pytest
@@ -19,6 +20,20 @@ def test_from_path():
 def test_from_string_path():
     filepath = str(DATA / 'image.png')
     mime = defity.from_file(filepath)
+    assert mime == 'image/png'
+
+
+def test_from_opened_file():
+    filepath = Path(__file__).parent.parent / 'skunk.svg'
+    with filepath.open() as f:
+        mime = defity.from_file(f)
+    assert mime == 'image/svg+xml'
+
+
+def test_from_in_memory_binary_stream():
+    original = (DATA / 'image.png').read_bytes()
+    floating = io.BytesIO(original)
+    mime = defity.from_file(floating)
     assert mime == 'image/png'
 
 
