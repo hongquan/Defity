@@ -29,9 +29,19 @@ fn from_file(path: PathBuf) -> PyResult<String>{
     Ok(result.unwrap().to_string())
 }
 
+/// from_bytes(content)
+/// --
+///
+/// Get mimetype of file from file content
+#[pyfunction]
+fn from_bytes(bytes: &[u8]) -> PyResult<String>{
+    Ok(tree_magic_mini::from_u8(bytes).to_owned())
+}
+
 #[pymodule]
 fn defity(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add_function(wrap_pyfunction!(from_file, m)?)?;
+    m.add_function(wrap_pyfunction!(from_bytes, m)?)?;
     Ok(())
 }
