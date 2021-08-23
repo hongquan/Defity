@@ -38,10 +38,34 @@ fn from_bytes(bytes: &[u8]) -> PyResult<String>{
     Ok(tree_magic_mini::from_u8(bytes).to_owned())
 }
 
+/// is_file_of_type(path, mimetypes)
+/// --
+///
+/// Test if file at given path is of one of given mime types.
+#[pyfunction]
+fn is_file_of_type(path: PathBuf, mimetypes: Vec<&str>) -> PyResult<bool>{
+    let path = path.as_path();
+    let matched = mimetypes.iter().any(|&t| { tree_magic_mini::match_filepath(t, path)});
+    Ok(matched)
+}
+
+/// is_bytes_of_type(path, mimetypes)
+/// --
+///
+/// Test if file content is of one of given mime types.
+#[pyfunction]
+fn is_bytes_of_type(bytes: &[u8], mimetypes: Vec<&str>) -> PyResult<bool>{
+    let matched = mimetypes.iter().any(|&t| { tree_magic_mini::match_u8(t, bytes)});
+    Ok(matched)
+}
+
+
 #[pymodule]
 fn defity(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add_function(wrap_pyfunction!(from_file, m)?)?;
     m.add_function(wrap_pyfunction!(from_bytes, m)?)?;
+    m.add_function(wrap_pyfunction!(is_file_of_type, m)?)?;
+    m.add_function(wrap_pyfunction!(is_bytes_of_type, m)?)?;
     Ok(())
 }
