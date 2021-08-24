@@ -63,13 +63,13 @@ jobs:
         if:  matrix.os != 'windows-latest'
         run: |
           echo "$(realpath ../venv/bin)" >> $GITHUB_PATH
-          echo "$(realpath ../venv)" >> $VIRTUAL_ENV
+          echo "VIRTUAL_ENV=$(realpath ../venv)" >> $GITHUB_ENV
 
       - name: Use virtual env (Windows)
         if:  matrix.os == 'windows-latest'
         run: |
           echo "$(realpath ../venv/bin)" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          echo "$(realpath ../venv)" | Out-File -FilePath $env:VIRTUAL_ENV -Encoding utf8 -Append
+          echo "VIRTUAL_ENV=$(realpath ../venv)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
       - name: Install latest nightly
         uses: actions-rs/toolchain@v1
