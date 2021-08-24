@@ -1,16 +1,15 @@
-use std::io;
-use std::fs::OpenOptions;
-use std::path::{PathBuf};
-use pyo3::prelude::*;
 use pyo3::exceptions as exc;
-
+use pyo3::prelude::*;
+use std::fs::OpenOptions;
+use std::io;
+use std::path::PathBuf;
 
 /// from_file(path)
 /// --
 ///
 /// Get mimetype of file from file path
 #[pyfunction]
-fn from_file(path: PathBuf) -> PyResult<String>{
+fn from_file(path: PathBuf) -> PyResult<String> {
     // We receive a PathBuf as parameter to try to handle the variety of file path encoding in
     // different OS.
     let path = path.as_path();
@@ -34,7 +33,7 @@ fn from_file(path: PathBuf) -> PyResult<String>{
 ///
 /// Get mimetype of file from file content
 #[pyfunction]
-fn from_bytes(bytes: &[u8]) -> PyResult<String>{
+fn from_bytes(bytes: &[u8]) -> PyResult<String> {
     Ok(tree_magic_mini::from_u8(bytes).to_owned())
 }
 
@@ -43,9 +42,11 @@ fn from_bytes(bytes: &[u8]) -> PyResult<String>{
 ///
 /// Test if file at given path is of one of given mime types.
 #[pyfunction]
-fn is_file_of_type(path: PathBuf, mimetypes: Vec<&str>) -> PyResult<bool>{
+fn is_file_of_type(path: PathBuf, mimetypes: Vec<&str>) -> PyResult<bool> {
     let path = path.as_path();
-    let matched = mimetypes.iter().any(|&t| { tree_magic_mini::match_filepath(t, path)});
+    let matched = mimetypes
+        .iter()
+        .any(|&t| tree_magic_mini::match_filepath(t, path));
     Ok(matched)
 }
 
@@ -54,11 +55,12 @@ fn is_file_of_type(path: PathBuf, mimetypes: Vec<&str>) -> PyResult<bool>{
 ///
 /// Test if file content is of one of given mime types.
 #[pyfunction]
-fn is_bytes_of_type(bytes: &[u8], mimetypes: Vec<&str>) -> PyResult<bool>{
-    let matched = mimetypes.iter().any(|&t| { tree_magic_mini::match_u8(t, bytes)});
+fn is_bytes_of_type(bytes: &[u8], mimetypes: Vec<&str>) -> PyResult<bool> {
+    let matched = mimetypes
+        .iter()
+        .any(|&t| tree_magic_mini::match_u8(t, bytes));
     Ok(matched)
 }
-
 
 #[pymodule]
 fn defity(_py: Python, m: &PyModule) -> PyResult<()> {
