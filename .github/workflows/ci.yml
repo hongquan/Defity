@@ -64,7 +64,7 @@ jobs:
           override: true
 
       - name: Install Maturin
-        run: poetry run pip install maturin pytest
+        run: poetry install --no-root
 
       - name: Build Python package
         run: poetry run maturin develop --release

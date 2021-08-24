@@ -39,10 +39,12 @@ strip = true
 name = "defity"
 version = "0.0.0"
 description = "Speedy library to detect file type from initial part of file content"
+authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 
 
 [tool.poetry.dev-dependencies]
 maturin = "^0.11.2"
+pytest = "^6"
 
 [tool.black]
 line-length = 88
