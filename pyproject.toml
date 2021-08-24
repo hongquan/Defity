@@ -32,6 +32,15 @@ requires = ["maturin>=0.11.2,<0.12"]
 sdist-include = ["Cargo.lock"]
 strip = true
 
+# We don't use Poetry to build and publish packages (do with Maturin instead).
+# But we use it to setup virtualenv in GH Action,
+# and it requires at least these information.
+[tool.poetry]
+name = "defity"
+version = "0.0.0"
+description = "Speedy library to detect file type from initial part of file content"
+
+
 [tool.poetry.dev-dependencies]
 maturin = "^0.11.2"
 
