@@ -68,6 +68,16 @@ jobs:
           poetry run pip install -U pip wheel
           poetry run pip install maturin pytest
 
+      - name: Install MIME DB for MacOS
+        if:  matrix.os == 'macos-latest'
+        uses: lyricwulf/abc@v1
+        with:
+          macos: shared-mime-info
+
+      - name: Initialize MIME DB for MacOS
+        if:  matrix.os == 'macos-latest'
+        run: update-mime-database /usr/local/share/mime
+
       - name: Build Python package
         run: poetry run maturin develop --release
 
