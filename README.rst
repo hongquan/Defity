@@ -2,15 +2,12 @@
 Defity
 ======
 
-
-.. image:: https://madewithlove.vercel.app/vn?heart=true&colorA=%23ffcd00&colorB=%23da251d
-.. image:: https://badgen.net/pypi/v/defity
-   :target: https://pypi.org/project/defity
+|image love| |image pypi|
 
 Speedy Python library to determine MIME type of file.
 
 
-.. image:: skunk.svg
+.. image:: https://raw.githubusercontent.com/hongquan/Defity/main/skunk.svg
   :alt: logo
 
 
@@ -64,6 +61,9 @@ Credit
 * Free icon is made by `Vitaly Gorbachev <vitaly_>`_ from `flaticon.com`_.
 
 
+.. |image love| image:: https://madewithlove.vercel.app/vn?heart=true&colorA=%23ffcd00&colorB=%23da251d
+.. |image pypi| image:: https://badgen.net/pypi/v/defity
+   :target: https://pypi.org/project/defity
 .. |file| replace:: ``file``
 .. _file: https://helpmanual.io/man1/file
 .. |libmagic| replace:: ``libmagic``
