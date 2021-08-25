@@ -12,7 +12,13 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+
+
+# If building on local machine, import our library from local path,
+# If building on ReadTheDocs, use our published one instead, because
+# RTD cannot build our library from Rust.
+if not os.getenv('READTHEDOCS'):
+    sys.path.insert(0, os.path.abspath('..'))
 
 
 import defity   # noqa
