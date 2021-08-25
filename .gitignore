@@ -7,3 +7,4 @@ __pypackages__
 _build
 .vscode
 .pdm.toml
+.python-version

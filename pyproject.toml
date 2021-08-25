@@ -7,12 +7,13 @@ authors = [
 maintainers = [
   {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
 ]
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.6"
 license = {file = "LICENSE"}
 classifiers = [
   "Development Status :: 4 - Beta",
-  "Programming Language :: Python"
+  "Programming Language :: Python",
+  "Operating System :: POSIX :: Linux"
 ]
 
 [project.urls]
@@ -33,7 +34,7 @@ sdist-include = ["Cargo.lock"]
 strip = true
 
 # We don't use Poetry to build and publish packages (do with Maturin instead).
-# But we use it to setup virtualenv in GH Action,
+# But we use Poetry to setup virtualenv in GH Action,
 # and it requires at least these information.
 [tool.poetry]
 name = "defity"
