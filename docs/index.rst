@@ -3,8 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Defity: Speedy library to detect file type
-==========================================
+Defity
+======
+
+Speedy library to detect file type.
 
 .. toctree::
    :maxdepth: 2

@@ -1,6 +1,6 @@
 [package]
 name = "defity"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 exclude = ["*.so", "*.bin", "__pycache__"]
 

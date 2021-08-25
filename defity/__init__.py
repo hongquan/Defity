@@ -13,11 +13,11 @@ CHUNK_SIZE = 2048
 
 
 def from_file(file: Union[Path, str, IO]) -> str:
-    """Return mimetype of a file, from its path.
+    """Return MIME type of a file, from its path, or from file-like object.
 
     The file must be opened in binary mode.
 
-    Usage::
+    Example:
 
       >>> import defity
       >>> defity.from_file('path/to/landscape.png')
@@ -46,9 +46,9 @@ def from_file(file: Union[Path, str, IO]) -> str:
 
 
 def from_bytes(buf: bytes) -> str:
-    """Return mimetype from content in form of bytes-like type.
+    """Return MIME type from content in form of bytes-like type.
 
-    Usage::
+    Example:
 
       >>> import defity
       >>> defity.from_bytes(b'some-binary-content')
@@ -63,9 +63,21 @@ def from_bytes(buf: bytes) -> str:
 
 
 def is_file_of_type(file: Union[Path, str, IO], mimetype: Union[str, Tuple[str, ...]]):
-    """"Test if given file is of one of given mime types.
+    """Test if given file is of one of given MIME types.
 
-    The file must be opened in binary mode."""
+    The file must be opened in binary mode.
+
+    Example:
+
+      >>> import defity
+      >>> defity.is_file_of_type('path/to/landscape.png', 'image/png')
+      True
+      >>> with open('path/to/landscape.png', 'rb') as f:
+      ...     defity.from_file(f, ('image/png', 'image/jpeg', 'application/pdf'))
+      ...
+      True
+
+    """
 
     _guard_file_arg(file)
     if isinstance(mimetype, str):
@@ -87,7 +99,7 @@ def is_file_of_type(file: Union[Path, str, IO], mimetype: Union[str, Tuple[str, 
 
 
 def is_bytes_of_type(buf: bytes, mimetype: Union[str, Tuple[str, ...]]):
-    """"Test if given file content is of one of given mime types."""
+    """Test if given file content is of one of given MIME types."""
 
     _guard_buf_arg(buf)
     if isinstance(mimetype, str):

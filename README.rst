@@ -2,7 +2,7 @@
 Defity
 ======
 
-|image love| |image pypi|
+|image love| |image pypi| |doc badge|
 
 Speedy Python library to determine MIME type of file.
 
@@ -12,6 +12,8 @@ Speedy Python library to determine MIME type of file.
 
 
 Defity (**De**\tect **fi**\le **ty**\pe) is a library for Python application to guess file type in a reliable way, not based on filename extension ( *\*.png*, *\*.pdf*), but on actual file content. It is like what |file|_ command and |libmagic|_ library do, but with different strategy.
+
+Documentation: `defity.readthedocs.io`_
 
 
 Usage
@@ -64,6 +66,10 @@ Credit
 .. |image love| image:: https://madewithlove.vercel.app/vn?heart=true&colorA=%23ffcd00&colorB=%23da251d
 .. |image pypi| image:: https://badgen.net/pypi/v/defity
    :target: https://pypi.org/project/defity
+.. |doc badge| image:: https://readthedocs.org/projects/defity/badge/?version=latest
+   :target: https://defity.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+.. _defity.readthedocs.io: https://defity.readthedocs.io/
 .. |file| replace:: ``file``
 .. _file: https://helpmanual.io/man1/file
 .. |libmagic| replace:: ``libmagic``
