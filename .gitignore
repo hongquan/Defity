@@ -3,4 +3,7 @@
 *.so
 *.bin
 __pycache__
+__pypackages__
+_build
 .vscode
+.pdm.toml

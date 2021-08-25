@@ -15,7 +15,19 @@ CHUNK_SIZE = 2048
 def from_file(file: Union[Path, str, IO]) -> str:
     """Return mimetype of a file, from its path.
 
-    The file must be opened in binary mode."""
+    The file must be opened in binary mode.
+
+    Usage::
+
+      >>> import defity
+      >>> defity.from_file('path/to/landscape.png')
+      'image/png'
+      >>> with open('path/to/landscape.png', 'rb') as f:
+      ...     defity.from_file(f)
+      ...
+      'image/png'
+
+    """
 
     # The Rust function receives a PathBuf, not &str, but PyO3 will
     # automatically convert for us.
@@ -34,7 +46,15 @@ def from_file(file: Union[Path, str, IO]) -> str:
 
 
 def from_bytes(buf: bytes) -> str:
-    """Return mimetype from content in form of bytes-like type."""
+    """Return mimetype from content in form of bytes-like type.
+
+    Usage::
+
+      >>> import defity
+      >>> defity.from_bytes(b'some-binary-content')
+      'image/png'
+
+    """
 
     _guard_buf_arg(buf)
     # We accept many input data types just for user's convenience. We still convert
