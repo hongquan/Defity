@@ -1,28 +1,15 @@
 [project]
 name = "defity"
 description = "Speedy library to detect file type from initial part of file content"
-authors = [
-  {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
-]
-maintainers = [
-  {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
-]
 readme = "README.rst"
 requires-python = ">=3.6"
-license = {file = "LICENSE"}
 classifiers = [
   "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
   "Programming Language :: Python",
-  "Operating System :: POSIX :: Linux"
-]
-
-[project.urls]
-homepage = "https://github.com/hongquan/Defity"
-repository = "https://github.com/hongquan/Defity.git"
-
-[project.optional-dependencies]
-test = [
-  "pytest>=6,<7",
+  "Programming Language :: Rust",
+  "Operating System :: POSIX :: Linux",
+  "License :: OSI Approved :: Apache Software License",
 ]
 
 [build-system]
@@ -48,9 +35,10 @@ python = ">=3.6.1"
 [tool.poetry.dev-dependencies]
 maturin = "^0.11.2"
 Sphinx = "^4.1.2"
+pytest-mypy = "^0.8.1"
 
 [tool.black]
-line-length = 88
+line-length = 100
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 
