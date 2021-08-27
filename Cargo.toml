@@ -1,6 +1,6 @@
 [package]
 name = "defity"
-version = "0.1.4"
+version = "0.2.0"
 authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 license = "Apache-2.0"
 homepage = "https://github.com/hongquan/Defity"
@@ -23,5 +23,5 @@ crate-type = ["cdylib"]
 tree_magic_mini = "3.0.0"
 
 [dependencies.pyo3]
-version = "0.14.2"
+version = "0.14.3"
 features = ["extension-module"]

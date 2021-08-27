@@ -41,6 +41,7 @@ pytest-mypy = "^0.8.1"
 line-length = 100
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
+skip-string-normalization = true
 
 [tool.pytest.ini_options]
 minversion = "6.0"

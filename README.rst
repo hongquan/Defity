@@ -16,6 +16,14 @@ Defity (**De**\tect **fi**\le **ty**\pe) is a library for Python application to 
 Documentation: `defity.readthedocs.io`_
 
 
+Install
+-------
+
+.. code-block:: console
+
+  $ pip install defity
+
+
 Usage
 -----
 

@@ -40,7 +40,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "defity"
-version = "0.1.4"
+version = "0.2.0"
 dependencies = [
  "pyo3",
  "tree_magic_mini",
@@ -133,9 +133,9 @@ dependencies = [
 
 [[package]]
 name = "libc"
-version = "0.2.99"
+version = "0.2.101"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a7f823d141fe0a24df1e23b4af4e3c7ba9e5966ec514ea068c93024aa7deb765"
+checksum = "3cb00336871be5ed2c8ed44b60ae9959dc5b9f08539422ed43f09e34ecaeba21"
 
 [[package]]
 name = "lock_api"
@@ -242,9 +242,9 @@ dependencies = [
 
 [[package]]
 name = "pyo3"
-version = "0.14.2"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af205762ba65eec9f27a2fa1a57a40644e8e3368784b8c8b2f2de48f6e8ddd96"
+checksum = "4ce0e80b2b35e9697353a25b0e4fa5374e38c451da2f86f0cd83c40e7f1d5191"
 dependencies = [
  "cfg-if",
  "indoc",
@@ -258,18 +258,18 @@ dependencies = [
 
 [[package]]
 name = "pyo3-build-config"
-version = "0.14.2"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "755944027ce803c7238e59c5a18e59c1d0a4553db50b23e9ba209a568353028d"
+checksum = "96007b58c38d68ae449ea4d82fbc390faf5f1f2c80c76a6e3d51385bceb56741"
 dependencies = [
  "once_cell",
 ]
 
 [[package]]
 name = "pyo3-macros"
-version = "0.14.2"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd31b36bccfd902c78804bd96c28ea93eac6fa0ca311f9d21ef2230b6665b29a"
+checksum = "326afb5c23f9789d0a367c37d58275c4d0e97ca74f05b9a25c0d66c6395c1c7b"
 dependencies = [
  "pyo3-macros-backend",
  "quote",
@@ -278,9 +278,9 @@ dependencies = [
 
 [[package]]
 name = "pyo3-macros-backend"
-version = "0.14.2"
+version = "0.14.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c21c59ba36db9c823e931c662766b0dd01a030b1d96585b67d8857a96a56b972"
+checksum = "7e38169a08f98219bba484d19100811a1646d4962706b75d60766d21dce64f9c"
 dependencies = [
  "proc-macro2",
  "pyo3-build-config",
@@ -338,9 +338,9 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
 name = "syn"
-version = "1.0.74"
+version = "1.0.75"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1873d832550d4588c3dbc20f01361ab00bfe741048f71e3fecf145a7cc18b29c"
+checksum = "b7f58f7e8eaa0009c5fec437aabf511bd9933e4b2d7407bd05273c01a8906ea7"
 dependencies = [
  "proc-macro2",
  "quote",
