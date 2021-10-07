@@ -60,7 +60,17 @@ So, ``Defity`` should have better performance than other libraries for the same 
 
 Another advantage is that, ``Defity`` is static linked to the underlying Rust library, not depend on discrete *libmagic.so*. It will be easier to deploy to cloud function platforms, where you don't have control over what system libraries is present there.
 
-``Defity`` is, unfortunately, only available for Linux, because the underlying ``tree_magic_mini`` only supports FreeDesktop's `MIME database <mime_db_>`_.
+
+License
+-------
+
+In general, Defity is licensed under Apache-2.0 if it is built without |tree_magic_mini|_ embedded MIME database, and is licensed under GPL-3.0 otherwise. Concretely:
+
+- On Linux, it is licensed under Apache-2.0.
+- On Windows and MacOS, it is licensed under GPL-3.0.
+
+It is because, Linux boxes already come with FreeDesktop's `MIME database <mime_db_>`_, Defity just uses it.
+Windows and MacOS don't have this database and Defity has to embed with it.
 
 
 Credit

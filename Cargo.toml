@@ -1,12 +1,12 @@
 [package]
 name = "defity"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 license = "Apache-2.0"
 homepage = "https://github.com/hongquan/Defity"
 repository = "https://github.com/hongquan/Defity.git"
 edition = "2018"
-exclude = ["*.so", "*.bin", "__pycache__"]
+exclude = ["*.so", "*.bin", "__pycache__", ".github"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,8 +20,14 @@ name = "defity"
 crate-type = ["cdylib"]
 
 [dependencies]
-tree_magic_mini = "3.0.0"
+tree_magic_mini = "3.0.2"
 
 [dependencies.pyo3]
-version = "0.14.3"
+version = "0.14.5"
 features = ["extension-module"]
+
+[target.'cfg(windows)'.dependencies]
+tree_magic_mini = { version = "3.0.2", features = [ "with-gpl-data" ] }
+
+[target.'cfg(macos)'.dependencies]
+tree_magic_mini = { version = "3.0.2", features = [ "with-gpl-data" ] }
