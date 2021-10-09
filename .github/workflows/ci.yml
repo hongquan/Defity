@@ -76,6 +76,9 @@ jobs:
       - name: pytest
         run: poetry run pytest
 
+      - name: Build production Python packages
+        run: poetry run maturin build --release
+
       - name: Archive wheel files
         uses: actions/upload-artifact@v2
         with:
