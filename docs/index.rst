@@ -6,19 +6,36 @@
 Defity
 ======
 
-Speedy library to detect file type.
+Speedy Python library to determine MIME type of file.
+
+
+Install
+-------
+
+.. code-block:: console
+
+  $ pip install defity
+
+
+Usage
+-----
+
+.. code-block:: python
+
+  >>> import defity
+  >>> defity.from_file('path/to/landscape.png')
+  'image/png'
+  >>> with open('path/to/landscape.png', 'rb') as f:
+  ...     defity.from_file(f)
+  ...
+  'image/png'
+
+  >>> defity.from_bytes(b'some-binary-content')
+  'image/png'
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: More:
 
    api-ref
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
