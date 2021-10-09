@@ -12,9 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Install latest nightly
-        uses: actions-rs/toolchain@v1
+      - name: Install latest nightly Rust
+        uses: actions-rs/toolchain@v2
         with:
+          profile: minimal
           toolchain: nightly
           override: true
           components: rustfmt, clippy
@@ -31,7 +32,7 @@ jobs:
           args: --all-targets --all-features
 
       - name: Test with cargo
-        uses: actions-rs/cargo@v1.0.1
+        uses: actions-rs/cargo@v1
         with:
           command: test
           toolchain: nightly
@@ -57,7 +58,7 @@ jobs:
       - name: Install Poetry
         uses: Gr1N/setup-poetry@v7
 
-      - name: Install latest nightly Rust
+      - name: Install latest stable Rust
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
