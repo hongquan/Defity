@@ -13,7 +13,7 @@ Speedy Python library to determine MIME type of file.
 
 Defity (**De**\tect **fi**\le **ty**\pe) is a library for Python application to guess file type in a reliable way, not based on filename extension ( *\*.png*, *\*.pdf*), but on actual file content. It is like what |file|_ command and |libmagic|_ library do, but with different strategy.
 
-Documentation: `defity.readthedocs.io`_
+📕 Documentation: `defity.readthedocs.io`_
 
 
 Install
