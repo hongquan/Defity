@@ -42,7 +42,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6, 3.7, 3.8, 3.9, 3.10]
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
@@ -60,7 +60,7 @@ jobs:
       - name: Install latest nightly Rust
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: nightly
+          profile: minimal
           override: true
 
       - name: Install Maturin
@@ -73,3 +73,9 @@ jobs:
 
       - name: pytest
         run: poetry run pytest
+
+      - name: Archive wheel files
+        uses: actions/upload-artifact@v2
+        with:
+          name: Built Wheels
+          path: target/wheels/*.whl
