@@ -2,7 +2,7 @@
 name = "defity"
 description = "Speedy library to detect file type from initial part of file content"
 readme = "README.rst"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -14,7 +14,7 @@ classifiers = [
 
 [build-system]
 build-backend = "maturin"
-requires = ["maturin>=0.11.2,<0.12"]
+requires = ["maturin>=0.13.6"]
 
 [tool.maturin]
 sdist-include = ["Cargo.lock"]
@@ -30,16 +30,16 @@ description = "Speedy library to detect file type from initial part of file cont
 authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = ">=3.6.1"
+python = ">=3.7.0"
 
 [tool.poetry.dev-dependencies]
-maturin = "^0.11.2"
-Sphinx = "^4.1.2"
-pytest-mypy = "^0.8.1"
+maturin = "^0.13.6"
+Sphinx = "^5.3.0"
+pytest-mypy = "^0.10.0"
 
 [tool.black]
 line-length = 100
-target-version = ['py36', 'py37', 'py38']
+target-version = ['py37', 'py310']
 include = '\.pyi?$'
 skip-string-normalization = true
 
