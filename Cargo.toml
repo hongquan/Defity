@@ -1,6 +1,6 @@
 [package]
 name = "defity"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 license = "Apache-2.0"
 homepage = "https://github.com/hongquan/Defity"
@@ -20,14 +20,14 @@ name = "defity"
 crate-type = ["cdylib"]
 
 [dependencies]
-tree_magic_mini = "3.0.2"
+tree_magic_mini = "3.0.3"
 
 [dependencies.pyo3]
-version = "0.14.5"
+version = "0.17.2"
 features = ["extension-module"]
 
 [target.'cfg(windows)'.dependencies]
-tree_magic_mini = { version = "3.0.2", features = [ "with-gpl-data" ] }
+tree_magic_mini = { version = "3.0.3", features = [ "with-gpl-data" ] }
 
 [target.'cfg(macos)'.dependencies]
-tree_magic_mini = { version = "3.0.2", features = [ "with-gpl-data" ] }
+tree_magic_mini = { version = "3.0.3", features = [ "with-gpl-data" ] }
