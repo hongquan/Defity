@@ -1,8 +1,10 @@
-use pyo3::exceptions as exc;
-use pyo3::prelude::*;
 use std::fs::OpenOptions;
 use std::io;
 use std::path::{Path, PathBuf};
+
+use pyo3::exceptions as exc;
+use pyo3::prelude::*;
+use pyo3::pybacked::PyBackedStr;
 
 /// from_file(path)
 /// --
@@ -36,13 +38,13 @@ fn from_bytes(py: Python, bytes: &[u8]) -> PyResult<String> {
 ///
 /// Test if file at given path is of one of given mime types.
 #[pyfunction]
-fn is_file_of_type(py: Python, path: PathBuf, mimetypes: Vec<&str>) -> PyResult<bool> {
+fn is_file_of_type(py: Python, path: PathBuf, mimetypes: Vec<PyBackedStr>) -> PyResult<bool> {
     py.allow_threads(|| {
         let path = path.as_path();
         check_file_readable(path)?;
         let matched = mimetypes
             .iter()
-            .any(|&t| tree_magic_mini::match_filepath(t, path));
+            .any(|t| tree_magic_mini::match_filepath(t, path));
         Ok(matched)
     })
 }
@@ -52,15 +54,14 @@ fn is_file_of_type(py: Python, path: PathBuf, mimetypes: Vec<&str>) -> PyResult<
 ///
 /// Test if file content is of one of given mime types.
 #[pyfunction]
-fn is_bytes_of_type(py: Python, bytes: &[u8], mimetypes: Vec<&str>) -> PyResult<bool> {
+fn is_bytes_of_type(py: Python, bytes: &[u8], mimetypes: Vec<PyBackedStr>) -> PyResult<bool> {
     py.allow_threads(|| {
         let matched = mimetypes
             .iter()
-            .any(|&t| tree_magic_mini::match_u8(t, bytes));
+            .any(|t| tree_magic_mini::match_u8(t, bytes));
         Ok(matched)
     })
 }
-
 
 // Because tree_magic_mini doesn't throw error when file is not accessible,
 // we use OpenOptions to check those error cases, in order to return meaningful
@@ -81,7 +82,7 @@ fn check_file_readable(path: &Path) -> PyResult<()> {
 }
 
 #[pymodule]
-fn defity(_py: Python, m: &PyModule) -> PyResult<()> {
+fn defity(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add_function(wrap_pyfunction!(from_file, m)?)?;
     m.add_function(wrap_pyfunction!(from_bytes, m)?)?;
