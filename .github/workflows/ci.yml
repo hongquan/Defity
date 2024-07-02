@@ -49,7 +49,20 @@ jobs:
           args: --release --out dist --find-interpreter
           sccache: 'true'
           manylinux: auto
-      - name: Build musl wheels
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-py-${{ matrix.python-version }}-linux-${{ matrix.platform.target }}
+          path: dist
+
+  musl_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
           target: x86_64-unknown-linux-musl
@@ -59,7 +72,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-py-${{ matrix.python-version }}-linux-${{ matrix.platform.target }}
+          name: wheels-py3.12-musllinux-x86_64
           path: dist
 
   windows:
