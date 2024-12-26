@@ -2,7 +2,7 @@
 name = "defity"
 description = "Speedy library to detect file type from initial part of file content"
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
@@ -11,32 +11,27 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "License :: OSI Approved :: Apache Software License",
 ]
+dynamic = ["version"]
+authors = [
+    {name = "Nguyễn Hồng Quân", email = "ng.hong.quan@gmail.com"},
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "maturin<2.0.0,>=1.8.0",
+    "pytest-mypy<1.0.0,>=0.10.3",
+    "sphinx<9.0.0,>=8.1.3",
+    "ruff<1.0.0,>=0.8.4",
+]
 
 [build-system]
+requires = ["maturin>=1.8,<2.0"]
 build-backend = "maturin"
-requires = ["maturin>=1.6.0,<2.0"]
 
 [tool.maturin]
 sdist-include = ["Cargo.lock"]
 strip = true
-
-# We don't use Poetry to build and publish packages (do with Maturin instead).
-# But we use Poetry to setup virtualenv in GH Action,
-# and it requires at least these information.
-[tool.poetry]
-name = "defity"
-version = "0.0.0"
-description = "Speedy library to detect file type from initial part of file content"
-authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
-
-[tool.poetry.dependencies]
-python = ">=3.9"
-
-[tool.poetry.group.dev.dependencies]
-maturin = "^1.6.0"
-pytest-mypy = "^0.10.3"
-sphinx = "^7.3.7"
-ruff = "^0.5.0"
 
 [tool.ruff]
 line-length = 120
@@ -70,3 +65,4 @@ exclude = [
 [tool.pytest.ini_options]
 minversion = "8.0"
 norecursedirs = "__pypackages__ _build"
+
