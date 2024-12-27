@@ -127,8 +127,8 @@ jobs:
         install: |
           apk add py3-pip shared-mime-info
           pip3 install -U --break-system-packages pip pytest-mypy
-          pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
         run: |
+          pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
           rf -rf defity/
           python3 -m pytest
     - name: Upload wheels
