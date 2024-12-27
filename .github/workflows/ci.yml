@@ -64,18 +64,19 @@ jobs:
         target:
           - x86_64-unknown-linux-musl
           - i686-unknown-linux-musl
+        python-version: [3.12, 3.13]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: 3.13
+        python-version: ${{ matrix.python-version }}
         architecture: x64
     - name: Build wheels
       uses: PyO3/maturin-action@v1
       with:
         target: ${{ matrix.target }}
         manylinux: musllinux_1_2
-        args: --release --out dist
+        args: --release --out dist --find-interpreter
     - name: Install built wheel
       if: matrix.target == 'x86_64-unknown-linux-musl'
       uses: addnab/docker-run-action@v3
@@ -102,18 +103,19 @@ jobs:
             arch: aarch64
           - target: armv7-unknown-linux-musleabihf
             arch: armv7
+        python-version: [3.12, 3.13]
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
-        python-version: 3.13
+        python-version: ${{ matrix.python-version }}
     - name: Build wheels
       uses: PyO3/maturin-action@v1
       with:
         rust-toolchain: nightly
         target: ${{ matrix.platform.target }}
         manylinux: musllinux_1_2
-        args: --release --out dist
+        args: --release --out dist --find-interpreter
     - uses: uraimo/run-on-arch-action@v2.8.1
       name: Install built wheel
       with:
@@ -157,7 +159,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-windows-${{ matrix.platform.target }}
+          name: wheels-py-${{ matrix.python-version }}-windows-${{ matrix.platform.target }}
           path: dist
 
   macos:
@@ -184,7 +186,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-macos-${{ matrix.platform.target }}
+          name: wheels-py-${{ matrix.python-version }}-macos-${{ matrix.platform.target }}
           path: dist
 
   sdist:
