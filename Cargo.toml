@@ -27,7 +27,9 @@ version = "0.23.3"
 features = ["extension-module"]
 
 [target.'cfg(windows)'.dependencies]
+tree_magic_db = { version = "3.0.1" }
 tree_magic_mini = { version = "3.1.6", features = [ "with-gpl-data" ] }
 
 [target.'cfg(macos)'.dependencies]
+tree_magic_db = { version = "3.0.1" }
 tree_magic_mini = { version = "3.1.6", features = [ "with-gpl-data" ] }
