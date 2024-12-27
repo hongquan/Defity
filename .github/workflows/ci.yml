@@ -92,7 +92,7 @@ jobs:
     - name: Upload wheels
       uses: actions/upload-artifact@v4
       with:
-        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.platform.target }}
+        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.target }}
         path: dist
 
   musl-linux-cross:
@@ -123,6 +123,7 @@ jobs:
         arch: ${{ matrix.platform.arch }}
         distro: alpine_latest
         githubToken: ${{ github.token }}
+        dockerRunArgs: -v ${{ github.workspace }}:/io -w /io
         install: |
           apk add py3-pip shared-mime-info
           pip3 install -U --break-system-packages pip pytest-mypy
