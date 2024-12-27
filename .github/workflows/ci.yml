@@ -86,6 +86,7 @@ jobs:
         run: |
           apk add py3-pip
           pip3 install -U --break-system-packages pip pytest-mypy
+          ls defity/
           python3 -m pytest
     - name: Upload wheels
       uses: actions/upload-artifact@v4
@@ -125,6 +126,7 @@ jobs:
           apk add py3-pip
           pip3 install -U --break-system-packages pip pytest-mypy
         run: |
+          ls defity/
           python3 -m pytest
     - name: Upload wheels
       uses: actions/upload-artifact@v4
