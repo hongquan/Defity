@@ -78,7 +78,7 @@ jobs:
         manylinux: musllinux_1_2
         args: --release --out dist -i ${{ matrix.python-version }}
     - name: Install built wheel
-      if: matrix.target == 'x86_64-unknown-linux-musl'
+      if: matrix.target == 'x86_64-unknown-linux-musl' && matrix.python-version == '3.12'
       uses: addnab/docker-run-action@v3
       with:
         image: alpine:latest
@@ -113,12 +113,12 @@ jobs:
     - name: Build wheels
       uses: PyO3/maturin-action@v1
       with:
-        rust-toolchain: nightly
         target: ${{ matrix.platform.target }}
         manylinux: musllinux_1_2
         args: --release --out dist -i ${{ matrix.python-version }}
     - uses: uraimo/run-on-arch-action@v2.8.1
       name: Install built wheel
+      if: matrix.python-version == '3.12'
       with:
         arch: ${{ matrix.platform.arch }}
         distro: alpine_latest
