@@ -86,12 +86,11 @@ jobs:
         run: |
           apk add py3-pip
           pip3 install -U --break-system-packages pip pytest-mypy
-          pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
           python3 -m pytest
     - name: Upload wheels
       uses: actions/upload-artifact@v4
       with:
-        name: wheels
+        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.platform.target }}
         path: dist
 
   musl-linux-cross:
@@ -126,12 +125,11 @@ jobs:
           apk add py3-pip
           pip3 install -U --break-system-packages pip pytest-mypy
         run: |
-          pip3 install --break-system-packages defity --no-index --find-links dist/ --force-reinstall
           python3 -m pytest
     - name: Upload wheels
       uses: actions/upload-artifact@v4
       with:
-        name: wheels
+        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.platform.target }}
         path: dist
 
   windows:
