@@ -23,8 +23,8 @@ crate-type = ["cdylib"]
 tree_magic_mini = "3.1.6"
 
 [dependencies.pyo3]
-version = "0.23.3"
-features = ["extension-module"]
+version = "0.25.1"
+features = [ "extension-module", "abi3", "abi3-py310" ]
 
 [target.'cfg(windows)'.dependencies]
 tree_magic_db = { version = "3.0.1" }
