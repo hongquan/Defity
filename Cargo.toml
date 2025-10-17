@@ -1,6 +1,6 @@
 [package]
 name = "defity"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["Nguyễn Hồng Quân <ng.hong.quan@gmail.com>"]
 license = "Apache-2.0"
 homepage = "https://github.com/hongquan/Defity"
