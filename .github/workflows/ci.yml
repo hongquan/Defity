@@ -82,11 +82,11 @@ jobs:
       uses: addnab/docker-run-action@v3
       with:
         image: alpine:latest
-        options: -v ${{ github.workspace }}:/io -w /io
+        options: -v ${{ github.workspace }}:/github/workspace -w /github/workspace
         run: |
           apk add py3-pip shared-mime-info
           pip3 install -U --break-system-packages pip pytest-mypy
-          pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
+          pip3 install --break-system-packages defity --no-index --find-links /github/workspace/dist/ --force-reinstall
           rm -rf defity/
           python3 -m pytest
     - name: Upload wheels
@@ -123,12 +123,12 @@ jobs:
         arch: ${{ matrix.platform.arch }}
         distro: alpine_latest
         githubToken: ${{ github.token }}
-        dockerRunArgs: -v ${{ github.workspace }}:/io -w /io
+        dockerRunArgs: -v ${{ github.workspace }}:/github/workspace -w /github/workspace
         install: |
           apk add py3-pip shared-mime-info
           pip3 install -U --break-system-packages pip pytest-mypy
         run: |
-          pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
+          pip3 install --break-system-packages defity --no-index --find-links /github/workspace/dist/ --force-reinstall
           rm -rf defity/
           python3 -m pytest
     - name: Upload wheels
