@@ -290,8 +290,8 @@ jobs:
           path: dist
 
   test:
-    name: Test ${{ matrix.os.arch }} py${{ matrix.python-version }} wheel on ${{ matrix.os.label }}
-    runs-on: ${{ matrix.os.label }}
+    name: Test ${{ matrix.os.arch }} py${{ matrix.python-version }} wheel on ${{ matrix.os.runner }}
+    runs-on: ${{ matrix.os.runner }}
     needs:
       - macos
       - linux
@@ -301,16 +301,16 @@ jobs:
     strategy:
       matrix:
         os:
-          - label: ubuntu-slim
+          - runner: ubuntu-slim
             arch: x86_64
-          - label: ubuntu-24.04-arm
+          - runner: ubuntu-24.04-arm
             arch: aarch64
-          - label: macos-26-intel
+          - runner: macos-26-intel
             arch: x86_64
-          - label: macos-26
+          - runner: macos-26
             arch: aarch64
-          - label: windows-2025
-            arch: x86_64
+          - runner: windows-2025
+            arch: AMD64
         python-version: ['3.10', '3.11', '3.12', '3.13', '3.14', '3.14t', '3.15', '3.15t']
     steps:
       - uses: actions/setup-python@v7.0.0
