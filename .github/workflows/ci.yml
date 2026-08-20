@@ -318,8 +318,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
-      - name: Verify platform
-        run: python3 -c 'import platform;print(platform.uname())'
       - uses: actions/checkout@v7.0.1
         name: Download tests
         with:
@@ -332,7 +330,6 @@ jobs:
           merge-multiple: true
       - name: Install wheel
         run: |
-          ls dist
           pip3 install --break-system-packages defity --no-index --find-links dist --force-reinstall
       - name: Test importing
         run: |
