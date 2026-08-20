@@ -20,16 +20,16 @@ name = "defity"
 crate-type = ["cdylib"]
 
 [dependencies]
-tree_magic_mini = "3.2.0"
+tree_magic_mini = "3.2.2"
 
 [dependencies.pyo3]
-version = "0.26.0"
+version = "0.29.0"
 features = [ "extension-module" ]
 
 [target.'cfg(windows)'.dependencies]
 tree_magic_db = { version = "3.0.1" }
-tree_magic_mini = { version = "3.2.0", features = [ "with-gpl-data" ] }
+tree_magic_mini = { version = "3.2.2", features = [ "with-gpl-data" ] }
 
 [target.'cfg(macos)'.dependencies]
 tree_magic_db = { version = "3.0.1" }
-tree_magic_mini = { version = "3.2.0", features = [ "with-gpl-data" ] }
+tree_magic_mini = { version = "3.2.2", features = [ "with-gpl-data" ] }

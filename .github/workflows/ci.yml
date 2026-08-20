@@ -78,12 +78,13 @@ jobs:
         manylinux: musllinux_1_2
         args: --release --out dist -i ${{ matrix.python-version }}
     - name: Install built wheel
-      if: matrix.target == 'x86_64-unknown-linux-musl' && matrix.python-version == '3.12'
-      uses: addnab/docker-run-action@v3
+      if: matrix.target == 'x86_64-unknown-linux-musl' && matrix.python-version == '3.14'
+      uses: vjik/docker-run@v1
       with:
-        image: alpine:latest
-        options: -v ${{ github.workspace }}:/io -w /io
-        run: |
+        image: alpine:3.24
+        volumes: ${{ github.workspace }}:/io
+        workdir: /io
+        command: |
           apk add py3-pip shared-mime-info
           pip3 install -U --break-system-packages pip pytest-mypy
           pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
@@ -118,7 +119,7 @@ jobs:
         args: --release --out dist -i ${{ matrix.python-version }}
     - uses: uraimo/run-on-arch-action@v2.8.1
       name: Install built wheel
-      if: matrix.python-version == '3.12'
+      if: matrix.python-version == '3.14'
       with:
         arch: ${{ matrix.platform.arch }}
         distro: alpine_latest
