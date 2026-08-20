@@ -339,7 +339,7 @@ jobs:
            python3 -c 'from defity import __version__;print(__version__)'
       - name: Run tests
         run: |
-          pip3 install pip install --break-system-packages pytest-mypy
+          pip3 install --break-system-packages pytest-mypy
           python3 -m pytest
 
   release:
