@@ -235,9 +235,9 @@ jobs:
     strategy:
       matrix:
         platform:
-          - runner: macos-latest
+          - runner: macos-26-intel
             target: x86_64
-          - runner: macos-14
+          - runner: macos-26
             target: aarch64
         python:
           - version: '3.10'
@@ -289,26 +289,38 @@ jobs:
           name: wheels-sdist
           path: dist
 
-  test-linux:
-    name: Test linux ${{ matrix.os.arch }} py${{ matrix.python-version }} wheel
+  test:
+    name: Test ${{ matrix.os.arch }} py${{ matrix.python-version }} wheel on ${{ matrix.os.label }}
     runs-on: ${{ matrix.os.label }}
     needs:
+      - macos
       - linux
+      - windows
     permissions:
       contents: read
     strategy:
       matrix:
         os:
-          - label: ubuntu-26.04
+          - label: ubuntu-slim
             arch: x86_64
-          - label: ubuntu-26.04-arm
+          - label: ubuntu-24.04-arm
             arch: aarch64
+          - label: macos-26-intel
+            arch: x86_64
+          - label: macos-26
+            arch: aarch64
+          - label: windows-2025
+            arch: x86_64
         python-version: ['3.10', '3.11', '3.12', '3.13', '3.14', '3.14t', '3.15', '3.15t']
     steps:
       - uses: actions/setup-python@v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
           allow-prereleases: true
+      - name: Verify platform
+        run: |
+            python3 -c 'import platform;print(platform.uname())'
+            python3 -c 'import platform, sys;sys.exit(platform.uname().machine != "${{ matrix.os.arch }}")'
       - uses: actions/checkout@v7.0.1
         name: Download tests
         with:
@@ -321,21 +333,20 @@ jobs:
           merge-multiple: true
       - name: Install wheel
         run: |
-          python3 -m venv venv
-          ./venv/bin/pip install defity --no-index --find-links dist --force-reinstall
+          pip3 install --break-system-packages defity --no-index --find-links dist --force-reinstall
       - name: Test importing
         run: |
-          ./venv/bin/python3 -c 'from defity import __version__;print(__version__)'
+           python3 -c 'from defity import __version__;print(__version__)'
       - name: Run tests
         run: |
-          ./venv/bin/pip install -U pytest-mypy
-          ./venv/bin/python3 -m pytest
+          pip3 install pip install --break-system-packages pytest-mypy
+          python3 -m pytest
 
   release:
     name: Release
     runs-on: ubuntu-latest
     if: "startsWith(github.ref, 'refs/tags/')"
-    needs: [test-linux, linux, musl-linux, musl-linux-cross, windows, macos, sdist]
+    needs: [test, linux, musl-linux, musl-linux-cross, windows, macos, sdist]
     environment: pypi
     permissions:
       id-token: write
