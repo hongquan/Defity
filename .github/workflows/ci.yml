@@ -43,16 +43,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v10.0.1
       - name: Build wheels
-        uses: PyO3/maturin-action@v1
+        uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist -i ${{ matrix.python-version }}
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: wheels-py-${{ matrix.python-version }}-linux-${{ matrix.platform.target }}
           path: dist
@@ -72,7 +72,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
         architecture: x64
     - name: Build wheels
-      uses: PyO3/maturin-action@v1
+      uses: PyO3/maturin-action@v1.51.0
       with:
         target: ${{ matrix.target }}
         manylinux: musllinux_1_2
@@ -90,7 +90,7 @@ jobs:
           rm -rf defity/
           python3 -m pytest
     - name: Upload wheels
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.target }}
         path: dist
@@ -111,7 +111,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Build wheels
-      uses: PyO3/maturin-action@v1
+      uses: PyO3/maturin-action@v1.51.0
       with:
         target: ${{ matrix.platform.target }}
         manylinux: musllinux_1_2
@@ -132,7 +132,7 @@ jobs:
           rm -rf defity/
           python3 -m pytest
     - name: Upload wheels
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.platform.target }}
         path: dist
@@ -154,13 +154,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
           architecture: ${{ matrix.platform.target }}
       - name: Build wheels
-        uses: PyO3/maturin-action@v1
+        uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist -i ${{ matrix.python-version }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: wheels-py-${{ matrix.python-version }}-windows-${{ matrix.platform.target }}
           path: dist
@@ -181,13 +181,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Build wheels
-        uses: PyO3/maturin-action@v1
+        uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
           args: --release --out dist -i ${{ matrix.python-version }}
           sccache: 'true'
       - name: Upload wheels
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: wheels-py-${{ matrix.python-version }}-macos-${{ matrix.platform.target }}
           path: dist
@@ -197,12 +197,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build sdist
-        uses: PyO3/maturin-action@v1
+        uses: PyO3/maturin-action@v1.51.0
         with:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: wheels-sdist
           path: dist
@@ -215,7 +215,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
       - name: Publish to PyPI
-        uses: PyO3/maturin-action@v1
+        uses: PyO3/maturin-action@v1.51.0
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         with:
