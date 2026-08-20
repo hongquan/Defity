@@ -191,7 +191,7 @@ jobs:
       matrix:
         platform:
           - runner: windows-latest
-            target: x64
+            target: x86_64
           - runner: windows-latest
             target: x86
         python:
