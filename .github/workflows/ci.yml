@@ -36,25 +36,42 @@ jobs:
             target: s390x
           - runner: ubuntu-latest
             target: ppc64le
-        python-version: ['3.10', 3.11, 3.12, 3.13, 3.14, 3.14t]
+        python:
+          - version: '3.10'
+            features: ''
+          - version: '3.10'
+            features: 'abi3'
+          - version: '3.11'
+            features: ''
+          - version: '3.12'
+            features: ''
+          - version: '3.13'
+            features: ''
+          - version: '3.14'
+            features: ''
+          - version: '3.14t'
+            features: ''
+          - version: '3.15'
+            features: 'abi3t'
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-python@v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python.version }}
+          allow-prereleases: ${{ matrix.python.version == '3.15' }}
       - name: Install uv
         uses: astral-sh/setup-uv@v10.0.1
       - name: Build wheels
         uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist -i ${{ matrix.python-version }}
+          args: --release --out dist -i ${{ matrix.python.version }} --features=${{ matrix.python.features }}
           sccache: 'true'
           manylinux: auto
       - name: Upload wheels
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: wheels-py-${{ matrix.python-version }}-linux-${{ matrix.platform.target }}
+          name: wheels-py-${{ matrix.python.features || matrix.python.version }}-linux-${{ matrix.platform.target }}
           path: dist
 
   musl-linux:
@@ -64,21 +81,34 @@ jobs:
         target:
           - x86_64-unknown-linux-musl
           - i686-unknown-linux-musl
-        python-version: [3.12, 3.13, 3.14, 3.14t]
+        python:
+          - version: '3.12'
+            features: ''
+          - version: '3.12'
+            features: 'abi3'
+          - version: '3.13'
+            features: ''
+          - version: '3.14'
+            features: ''
+          - version: '3.14t'
+            features: ''
+          - version: '3.15'
+            features: 'abi3t'
     steps:
     - uses: actions/checkout@v7.0.1
     - uses: actions/setup-python@v7.0.0
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ matrix.python.version }}
+        allow-prereleases: ${{ matrix.python.version == '3.15' }}
         architecture: x64
     - name: Build wheels
       uses: PyO3/maturin-action@v1.51.0
       with:
         target: ${{ matrix.target }}
         manylinux: musllinux_1_2
-        args: --release --out dist -i ${{ matrix.python-version }}
+        args: --release --out dist -i ${{ matrix.python.version }} --features=${{ matrix.python.features }}
     - name: Install built wheel
-      if: matrix.target == 'x86_64-unknown-linux-musl' && matrix.python-version == '3.14'
+      if: matrix.target == 'x86_64-unknown-linux-musl' && matrix.python.version == '3.14'
       uses: vjik/docker-run@v1
       with:
         image: alpine:3.24
@@ -93,7 +123,7 @@ jobs:
     - name: Upload wheels
       uses: actions/upload-artifact@v7.0.1
       with:
-        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.target }}
+        name: wheels-py-${{ matrix.python.features || matrix.python.version }}-musllinux-${{ matrix.target }}
         path: dist
 
   musl-linux-cross:
@@ -105,21 +135,38 @@ jobs:
             arch: aarch64
           - target: armv7-unknown-linux-musleabihf
             arch: armv7
-        python-version: [3.12, 3.13, 3.14, 3.14t]
+        python:
+          - version: '3.10'
+            features: ''
+          - version: '3.10'
+            features: 'abi3'
+          - version: '3.11'
+            features: ''
+          - version: '3.12'
+            features: ''
+          - version: '3.13'
+            features: ''
+          - version: '3.14'
+            features: ''
+          - version: '3.14t'
+            features: ''
+          - version: '3.15'
+            features: 'abi3t'
     steps:
     - uses: actions/checkout@v7.0.1
     - uses: actions/setup-python@v7.0.0
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ matrix.python.version }}
+        allow-prereleases: ${{ matrix.python.version == '3.15' }}
     - name: Build wheels
       uses: PyO3/maturin-action@v1.51.0
       with:
         target: ${{ matrix.platform.target }}
         manylinux: musllinux_1_2
-        args: --release --out dist -i ${{ matrix.python-version }}
+        args: --release --out dist -i ${{ matrix.python.version }} --features=${{ matrix.python.features }}
     - uses: uraimo/run-on-arch-action@v3.2.0
       name: Install built wheel
-      if: matrix.python-version == '3.14'
+      if: matrix.python.version == '3.14'
       with:
         arch: ${{ matrix.platform.arch }}
         distro: alpine_latest
@@ -135,7 +182,7 @@ jobs:
     - name: Upload wheels
       uses: actions/upload-artifact@v7.0.1
       with:
-        name: wheels-py-${{ matrix.python-version }}-musllinux-${{ matrix.platform.target }}
+        name: wheels-py-${{ matrix.python.features || matrix.python.version }}-musllinux-${{ matrix.platform.target }}
         path: dist
 
   windows:
@@ -147,23 +194,40 @@ jobs:
             target: x64
           - runner: windows-latest
             target: x86
-        python-version: [3.12, 3.13, 3.14, 3.14t]
+        python:
+          - version: '3.10'
+            features: ''
+          - version: '3.10'
+            features: 'abi3'
+          - version: '3.11'
+            features: ''
+          - version: '3.12'
+            features: ''
+          - version: '3.13'
+            features: ''
+          - version: '3.14'
+            features: ''
+          - version: '3.14t'
+            features: ''
+          - version: '3.15'
+            features: 'abi3t'
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-python@v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python.version }}
           architecture: ${{ matrix.platform.target }}
+          allow-prereleases: ${{ matrix.python.version == '3.15' }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist -i ${{ matrix.python-version }}
+          args: --release --out dist -i ${{ matrix.python.version }} --features=${{ matrix.python.features }}
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: wheels-py-${{ matrix.python-version }}-windows-${{ matrix.platform.target }}
+          name: wheels-py-${{ matrix.python.features || matrix.python.version }}-windows-${{ matrix.platform.target }}
           path: dist
 
   macos:
@@ -175,22 +239,39 @@ jobs:
             target: x86_64
           - runner: macos-14
             target: aarch64
-        python-version: [3.12, 3.13, 3.14, 3.14t]
+        python:
+          - version: '3.10'
+            features: ''
+          - version: '3.10'
+            features: 'abi3'
+          - version: '3.11'
+            features: ''
+          - version: '3.12'
+            features: ''
+          - version: '3.13'
+            features: ''
+          - version: '3.14'
+            features: ''
+          - version: '3.14t'
+            features: ''
+          - version: '3.15'
+            features: 'abi3t'
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-python@v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python.version }}
+          allow-prereleases: ${{ matrix.python.version == '3.15' }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1.51.0
         with:
           target: ${{ matrix.platform.target }}
-          args: --release --out dist -i ${{ matrix.python-version }}
+          args: --release --out dist -i ${{ matrix.python.version }} --features=${{ matrix.python.features }}
           sccache: 'true'
       - name: Upload wheels
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: wheels-py-${{ matrix.python-version }}-macos-${{ matrix.platform.target }}
+          name: wheels-py-${{ matrix.python.features || matrix.python.version }}-macos-${{ matrix.platform.target }}
           path: dist
 
   sdist:
