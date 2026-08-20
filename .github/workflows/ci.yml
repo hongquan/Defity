@@ -38,8 +38,8 @@ jobs:
             target: ppc64le
         python-version: ['3.10', 3.11, 3.12, 3.13, 3.14, 3.14t]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install uv
@@ -66,8 +66,8 @@ jobs:
           - i686-unknown-linux-musl
         python-version: [3.12, 3.13, 3.14, 3.14t]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@v7.0.1
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
         architecture: x64
@@ -85,7 +85,7 @@ jobs:
         volumes: ${{ github.workspace }}:/io
         workdir: /io
         command: |
-          apk add py3-pip shared-mime-info
+          apk add py3-pip shared-mime-info build-base python3-dev
           pip3 install -U --break-system-packages pip pytest-mypy
           pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
           rm -rf defity/
@@ -107,8 +107,8 @@ jobs:
             arch: armv7
         python-version: [3.12, 3.13, 3.14, 3.14t]
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v6
+    - uses: actions/checkout@v7.0.1
+    - uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
     - name: Build wheels
@@ -117,7 +117,7 @@ jobs:
         target: ${{ matrix.platform.target }}
         manylinux: musllinux_1_2
         args: --release --out dist -i ${{ matrix.python-version }}
-    - uses: uraimo/run-on-arch-action@v2.8.1
+    - uses: uraimo/run-on-arch-action@v3.2.0
       name: Install built wheel
       if: matrix.python-version == '3.14'
       with:
@@ -126,7 +126,7 @@ jobs:
         githubToken: ${{ github.token }}
         dockerRunArgs: -v ${{ github.workspace }}:/io -w /io
         install: |
-          apk add py3-pip shared-mime-info
+          apk add py3-pip shared-mime-info build-base python3-dev
           pip3 install -U --break-system-packages pip pytest-mypy
         run: |
           pip3 install --break-system-packages defity --no-index --find-links /io/dist/ --force-reinstall
@@ -149,8 +149,8 @@ jobs:
             target: x86
         python-version: [3.12, 3.13, 3.14, 3.14t]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
           architecture: ${{ matrix.platform.target }}
@@ -177,8 +177,8 @@ jobs:
             target: aarch64
         python-version: [3.12, 3.13, 3.14, 3.14t]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
       - name: Build wheels
@@ -196,7 +196,7 @@ jobs:
   sdist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7.0.1
       - name: Build sdist
         uses: PyO3/maturin-action@v1.51.0
         with:
@@ -213,12 +213,15 @@ jobs:
     runs-on: ubuntu-latest
     if: "startsWith(github.ref, 'refs/tags/')"
     needs: [linux, musl-linux, musl-linux-cross, windows, macos, sdist]
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: write
     steps:
-      - uses: actions/download-artifact@v4
-      - name: Publish to PyPI
-        uses: PyO3/maturin-action@v1.51.0
-        env:
-          MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+      - uses: actions/download-artifact@v8.0.1
         with:
-          command: upload
-          args: --non-interactive --skip-existing wheels-*/*
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.14.2
