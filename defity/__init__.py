@@ -45,7 +45,7 @@ def from_file(file: Union[Path, str, IO]) -> str:
     return _mod.from_bytes(chunk.encode() if isinstance(chunk, str) else chunk)
 
 
-def from_bytes(buf: bytes) -> str:
+def from_bytes(buf: Union[bytes, bytearray, memoryview]) -> str:
     """Return MIME type from content in form of bytes-like type.
 
     Example:
