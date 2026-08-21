@@ -23,9 +23,11 @@ crate-type = ["cdylib"]
 default = []
 abi3 = ["pyo3/abi3", "pyo3/abi3-py310"]
 abi3t = ["pyo3/abi3t", "pyo3/abi3t-py315"]
+with-gpl-data = ["tree_magic_mini/with-gpl-data", "dep:tree_magic_db"]
 
 [dependencies]
 tree_magic_mini = "3.2.2"
+tree_magic_db = { version = "3.0.1", optional = true }
 
 [dependencies.pyo3]
 version = "0.29.0"
