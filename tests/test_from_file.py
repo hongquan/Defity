@@ -1,3 +1,5 @@
+import tempfile
+import os
 import io
 from pathlib import Path
 
@@ -6,7 +8,6 @@ import defity
 
 
 DATA = Path(__file__).parent / 'data'
-NO_READ_PERMISSION_FILE = '/proc/kcore'
 # This file can be copied from Windows, we are not allowed to redistribute it here
 UNRECOGNIZED_FILE = DATA / 'mib.bin'
 
@@ -43,12 +44,21 @@ def test_file_not_found():
         defity.from_file(filepath)
 
 
-@pytest.mark.skipif(not Path(NO_READ_PERMISSION_FILE).exists(),
-                    reason=f'Not a Linux with {NO_READ_PERMISSION_FILE} file')
+@pytest.mark.skipif(not hasattr(Path, "chmod"), reason=f'Path.chmod needs to be available')
 def test_file_permisson():
-    filepath = NO_READ_PERMISSION_FILE
-    with pytest.raises(PermissionError):
-        defity.from_file(filepath)
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        filepath = Path(tmp_dir) / "test.txt"
+
+        assert filepath.write_bytes(b"Hallo, Welt!")
+
+        filepath.chmod(0)  # disable reading
+
+        with pytest.raises(PermissionError):
+            defity.from_file(filepath)
+
+        filepath.unlink()
+
+    assert not Path(tmp_dir).exists()
 
 
 @pytest.mark.skipif(not Path(UNRECOGNIZED_FILE).exists(),
