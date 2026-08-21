@@ -54,7 +54,7 @@ def test_file_permisson():
     with tempfile.TemporaryDirectory() as tmp_dir:
         filepath = Path(tmp_dir) / "test.txt"
 
-        assert filepath.write_bytes(b"Hallo, Welt!")
+        assert filepath.write_bytes(b"hello world")
 
         filepath.chmod(0)  # disable reading
 
