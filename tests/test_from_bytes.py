@@ -19,7 +19,7 @@ def test_from_bytearray():
 
 
 def test_all_zeros():
-    """Test that a general MIME type "application/octet-stream" is always returned for
-    unknown file."""
-    mime = defity.from_bytes(b"\0" * 1000)
+    zeros = b"\0" * 1000
+    mime = defity.from_bytes(zeros)
     assert mime == 'application/octet-stream'
+    assert defity.is_bytes_of_type(zeros, 'application/octet-stream')

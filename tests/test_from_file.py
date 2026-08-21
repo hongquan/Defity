@@ -44,7 +44,12 @@ def test_file_not_found():
         defity.from_file(filepath)
 
 
+def test_passing_directory():
+    assert defity.from_file(DATA) == "inode/directory"
+
+
 @pytest.mark.skipif(not hasattr(Path, "chmod"), reason=f'Path.chmod needs to be available')
+@pytest.mark.skipif(os.geteuid() == 0, reason=f'Cannot run this test as root')
 def test_file_permisson():
     with tempfile.TemporaryDirectory() as tmp_dir:
         filepath = Path(tmp_dir) / "test.txt"
