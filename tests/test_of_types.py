@@ -47,3 +47,12 @@ def test_bytes_multiple_types():
     mimes = ('image/png', 'application/pdf')
     matched = defity.is_bytes_of_type(filepath.read_bytes(), mimes)
     assert matched
+
+
+def test_svg_matches_multiple_types():
+    svg_file = Path(__file__).parent.parent / 'skunk.svg'
+    svg_bytes = svg_file.read_bytes()
+
+    for mime in ('image/svg+xml', 'text/plain', 'text/xml', 'application/octet-stream'):
+        assert defity.is_file_of_type(svg_file, mime)
+        assert defity.is_bytes_of_type(svg_bytes, mime)

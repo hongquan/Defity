@@ -19,6 +19,11 @@ name = "defity"
 # crate-type = ["cdylib", "rlib"]
 crate-type = ["cdylib"]
 
+[features]
+default = []
+abi3 = ["pyo3/abi3", "pyo3/abi3-py310"]
+abi3t = ["pyo3/abi3t", "pyo3/abi3t-py315"]
+
 [dependencies]
 tree_magic_mini = "3.2.2"
 
